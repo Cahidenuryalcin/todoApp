@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/helper/data_helper.dart';
 import 'package:todo_app/model/task.dart';
+import 'package:todo_app/provider/task_proivder.dart';
+import 'package:todo_app/todo_list.dart';
 
 class AddTask extends StatefulWidget {
-  final Function onTaskAdded;
-  const AddTask({super.key, required this.onTaskAdded});
+ 
+  const AddTask({super.key});
 
   @override
   State<AddTask> createState() => _AddTaskState();
@@ -64,8 +67,10 @@ class _AddTaskState extends State<AddTask> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       var newTask = Task(taskTitle: taskTitle, taskDetail: taskDetail);
-      DataHelper.taskAdd(newTask);
-      widget.onTaskAdded(); // Callback'i çağırarak durum güncellemesini tetikle
+      /* DataHelper.taskAdd(newTask);
+      widget.onTaskAdded(); 
+      */// Callback'i çağırarak durum güncellemesini tetikle
+      Provider.of<TaskProvider>(context, listen: false).addTask(newTask);
       Navigator.pop(context);  // Optionally pop the current route
     }
     print("$taskTitle, $taskDetail");

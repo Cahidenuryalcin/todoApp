@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/add_task.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/completed_task.dart';
-import 'package:todo_app/helper/data_helper.dart';
+import 'package:todo_app/provider/task_proivder.dart';
+
 
 import 'package:todo_app/task_list.dart';
 
@@ -88,31 +89,14 @@ class _AnaSayfaState extends State<AnaSayfa>
               ))
         ],
       ),
-      body: TaskList(
-        onElemenCikarildi: (index) {
-          DataHelper.allTasks.removeAt(index);
-          setState(() {});
-        },
-        key: UniqueKey(),
-      ),
+      body: TaskList(),
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
         backgroundColor: Sabitler.floatingActionButtonColor,
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) =>
-                    AddTask(onTaskAdded: (){
-                      setState(() {
-                        
-                      });
-                    },)), // This page will open when the button is pressed
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddTask()));
         },
-        child: Icon(
-          Icons.add_rounded,
-          color: Sabitler.floatingActionButtonIconColor,
-        ),
+        child: Icon(Icons.add_rounded, color: Sabitler.floatingActionButtonIconColor),
       ),
     );
   }

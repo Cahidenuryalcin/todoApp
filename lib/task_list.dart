@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/edit_task.dart';
-import 'package:todo_app/helper/data_helper.dart';
 import 'package:todo_app/model/task.dart';
-
+import 'package:todo_app/provider/task_proivder.dart';
 class TaskList extends StatelessWidget {
-  final Function onElemenCikarildi;
-  const TaskList({super.key, required this.onElemenCikarildi});
+  const TaskList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Task> allTasks = DataHelper.allTasks;
+    List<Task> allTasks = Provider.of<TaskProvider>(context).tasks;
 
     return allTasks.isNotEmpty
         ? ListView.builder(
             padding: EdgeInsets.all(4.0),
             itemCount: allTasks.length,
             itemBuilder: (context, index) {
+              Task task = allTasks[index]; // Her bir görevi 'task' değişkenine atayın.
               return Dismissible(
                 key: UniqueKey(),
                 direction: DismissDirection.endToStart,
-                onDismissed: (a) {
-                  onElemenCikarildi(index);
-                  print("$index ");
+                onDismissed: (direction) {
+                  Provider.of<TaskProvider>(context, listen: false).removeTask(index);
                 },
                 child: Card(
                   color: Sabitler.cardColor,
                   child: ListTile(
                     title: Text(
-
-                      "${allTasks[index].taskTitle}", // 'todoItems[index]' yerine 'task.title' düzeltildi.
+                      task.taskTitle, // 'todoItems[index]' yerine doğrudan 'task.taskTitle' kullanın.
                       style: TextStyle(
                         color: Sabitler.listTileTitleColor,
                         fontWeight: FontWeight.bold,
@@ -37,7 +35,7 @@ class TaskList extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "${allTasks[index].taskDetail}", // Burası gerektiğinde dinamik hale getirilebilir.
+                      task.taskDetail, // 'todoItems[index]' yerine doğrudan 'task.taskDetail' kullanın.
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 11,
@@ -52,8 +50,7 @@ class TaskList extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditTask(), // EditTask'e 'task' parametresi eklendi.
+                                  builder: (context) => EditTask(task: task, index: index),
                                 ),
                               );
                             },
@@ -63,15 +60,25 @@ class TaskList extends StatelessWidget {
                               color: Sabitler.listTileTrailingIconColor,
                             ),
                           ),
-                          Icon(
-                            Icons.delete_outline_rounded,
-                            size: 20,
-                            color: Sabitler.listTileTrailingIconColor,
+                          InkWell(
+                            onTap: () {
+                              Provider.of<TaskProvider>(context, listen: false).removeTask(index);
+                            },
+                            child: Icon(
+                              Icons.delete_outline_rounded,
+                              size: 20,
+                              color: Sabitler.listTileTrailingIconColor,
+                            ),
                           ),
-                          Icon(
-                            Icons.check_circle_outline_rounded,
-                            size: 20,
-                            color: Sabitler.listTileTrailingIconColor,
+                          InkWell(
+                            onTap: () {
+                              
+                            },
+                            child: Icon(
+                              Icons.check_circle_outline_rounded,
+                              size: 20,
+                              color: Sabitler.listTileTrailingIconColor,
+                            ),
                           ),
                         ],
                       ),
