@@ -30,7 +30,7 @@ class _AddTaskState extends State<AddTask> {
       body: Container(
         padding: const EdgeInsets.only(left: 29, right: 29, top: 30),
         child: Form(
-          key: formKey,  // Form key is now correctly associated
+          key: formKey,  
           child: Column(
             children: [
               TextFormField(
@@ -71,7 +71,7 @@ class _AddTaskState extends State<AddTask> {
       widget.onTaskAdded(); 
       */// Callback'i çağırarak durum güncellemesini tetikle
       Provider.of<TaskProvider>(context, listen: false).addTask(newTask);
-      Navigator.pop(context);  // Optionally pop the current route
+      Navigator.pop(context);  
     }
     print("$taskTitle, $taskDetail");
   }

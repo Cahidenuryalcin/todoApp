@@ -16,7 +16,7 @@ class TaskList extends StatelessWidget {
             padding: EdgeInsets.all(4.0),
             itemCount: allTasks.length,
             itemBuilder: (context, index) {
-              Task task = allTasks[index]; // Her bir görevi 'task' değişkenine atayın.
+              Task task = allTasks[index]; 
               return Dismissible(
                 key: UniqueKey(),
                 direction: DismissDirection.endToStart,
@@ -27,7 +27,7 @@ class TaskList extends StatelessWidget {
                   color: Sabitler.cardColor,
                   child: ListTile(
                     title: Text(
-                      task.taskTitle, // 'todoItems[index]' yerine doğrudan 'task.taskTitle' kullanın.
+                      task.taskTitle, 
                       style: TextStyle(
                         color: Sabitler.listTileTitleColor,
                         fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class TaskList extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      task.taskDetail, // 'todoItems[index]' yerine doğrudan 'task.taskDetail' kullanın.
+                      task.taskDetail, 
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 11,

@@ -55,7 +55,7 @@ class _AnaSayfaState extends State<AnaSayfa>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) =>
-                          CompletedTask()), // This page will open when the button is pressed
+                          CompletedTask()), 
                 );
               },
               child: Tab(

@@ -15,7 +15,7 @@ class _CompletedTaskState extends State<CompletedTask> {
       appBar: AppBar(
           iconTheme: const IconThemeData(
             color: Colors
-                .white, // Sadece bu AppBar için geri dönüş butonu yeşil olacak
+                .yellow, 
           ),
           backgroundColor: Sabitler.appbarColor,
           title: const Text(

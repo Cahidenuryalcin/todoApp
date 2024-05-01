@@ -8,7 +8,7 @@ import 'package:todo_app/provider/task_proivder.dart';
 
 class EditTask extends StatefulWidget {
   final Task task;
-  final int index; // Görevin index'i
+  final int index; 
 
   const EditTask({super.key, required this.task, required this.index});
 
@@ -47,11 +47,11 @@ class _EditListState extends State<EditTask> {
           child: Column(
             children: [
               TextFormField(
-                controller: _titleController, // Başlık için controller
+                controller: _titleController, 
                 decoration: const InputDecoration(labelText: "Title"),
               ),
               TextFormField(
-                controller: _detailController, // Detay için controller
+                controller: _detailController,
                 decoration: const InputDecoration(labelText: "Detail"),
               ),
               const SizedBox(height: 20),
