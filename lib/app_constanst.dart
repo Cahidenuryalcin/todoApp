@@ -7,6 +7,7 @@ class Sabitler {
   static const tabbarTextColor = Color.fromRGBO(147, 149, 211, 1);
   static const tabbarColor = Colors.white;
   static const appbarColor = Color.fromRGBO(147, 149, 211, 1);
+  static const appbarColor2 = Color.fromRGBO(181, 182, 241, 1);
   static const appbarTextColor = Colors.white;
   static const calendarIconColor = Colors.white;
   static const cardColor = Color.fromRGBO(255, 255, 255, 1);
