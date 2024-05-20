@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/firebase_options.dart';
+import 'package:todo_app/login.dart';
 import 'package:todo_app/provider/task_proivder.dart';
+import 'package:todo_app/register.dart';
 import 'package:todo_app/todo_list.dart';
 
 void main() async {
@@ -42,12 +44,11 @@ class WelcomeScreen extends StatelessWidget {
               'tadatodo',
               style: TextStyle(
                 fontFamily: "Montserrat",
-                fontSize: 40, // Büyüklük arttırıldı
+                fontSize: 40, 
                 fontWeight: FontWeight.bold,
                 color: Sabitler.appbarColor2,
               ),
             ),
-          
           ],
         ),
         backgroundColor: Sabitler.appbarTextColor,
@@ -61,12 +62,12 @@ class WelcomeScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 5), // Yazı ile butonlar arasında boşluk
+            SizedBox(height: 5), 
             Text(
-              "Tadaa :D Let's todo this!", // Yeni eklenen yazı
+              "Tadaa :D Let's todo this!", 
               style: TextStyle(
-                fontSize: 25, // Yazı boyutu
-                color: Colors.black54, // Rengi siyah
+                fontSize: 25, 
+                color: Colors.black54, 
                 fontWeight: FontWeight.w400,
                 fontFamily: "Montserrat",
               ),
@@ -83,7 +84,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
+            SizedBox(height: 15), 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,7 +99,7 @@ class WelcomeScreen extends StatelessWidget {
                   },
                   child: Text('Login'),
                 ),
-                SizedBox(width: 20), // Butonlar arasında boşluk
+                SizedBox(width: 20), 
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -112,50 +113,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Login Form Here'),
-            // Add your login form widgets here
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Register Form Here'),
-            // Add your register form widgets here
           ],
         ),
       ),
