@@ -1,5 +1,9 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/app_constanst.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,12 +13,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _passwordsMatch = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  late FirebaseAuth auth;
+
+  @override
+  void initState() {
+    super.initState();
+    auth = FirebaseAuth.instance;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Sabitler.appbarColor,
@@ -46,23 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(hintText: "Password"),
                 obscureText: true,
               ),
-              const SizedBox(height: 10),
-              TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    _passwordsMatch = value == _passwordController.text;
-                  });
-                },
-                validator: (value) => !_passwordsMatch ? "Passwords do not match" : null,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: const InputDecoration(hintText: "Confirm Password"),
-                obscureText: true,
-              ),
-              if (!_passwordsMatch)
-                const Text(
-                  "Passwords do not match",
-                  style: TextStyle(color: Colors.red),
-                ),
+              
               const SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,

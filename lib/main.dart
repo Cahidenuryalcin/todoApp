@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/login.dart';
+import 'package:todo_app/provider/auth_provider.dart';
 import 'package:todo_app/provider/task_proivder.dart';
 import 'package:todo_app/register.dart';
 import 'package:todo_app/todo_list.dart';
@@ -17,8 +18,11 @@ void main() async {
   );
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: WelcomeScreen(),
@@ -33,6 +37,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         titleTextStyle: TextStyle(
           fontFamily: "Montserrat",
@@ -44,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
               'tadatodo',
               style: TextStyle(
                 fontFamily: "Montserrat",
-                fontSize: 40, 
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Sabitler.appbarColor2,
               ),
@@ -62,12 +67,12 @@ class WelcomeScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 5), 
+            SizedBox(height: 5),
             Text(
-              "Tadaa :D Let's todo this!", 
+              "Tadaa :D Let's todo this!",
               style: TextStyle(
-                fontSize: 25, 
-                color: Colors.black54, 
+                fontSize: 25,
+                color: Colors.black54,
                 fontWeight: FontWeight.w400,
                 fontFamily: "Montserrat",
               ),
@@ -84,7 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 15), 
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -99,7 +104,7 @@ class WelcomeScreen extends StatelessWidget {
                   },
                   child: Text('Login'),
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
