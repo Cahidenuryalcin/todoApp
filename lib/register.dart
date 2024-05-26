@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _passwordController.text,
         _nameController.text,
       );
-      // Additional logic after registration, like navigating to a different screen
+      // sayfa yönlendirmesi direkt profil sayfası
     }
   }
 }

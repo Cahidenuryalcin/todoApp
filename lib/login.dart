@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         _emailController.text,
         _passwordController.text,
       );
-      // Additional logic after login, like navigating to a different screen
+      // sayfa yönlendirmesi direkt profil sayfası
     }
   }
 }
