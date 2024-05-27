@@ -6,6 +6,7 @@ import 'package:todo_app/provider/task_proivder.dart';
 
 
 import 'package:todo_app/task_list.dart';
+import 'package:todo_app/user_profile.dart';
 
 class AnaSayfa extends StatefulWidget {
   const AnaSayfa({super.key});
@@ -22,7 +23,7 @@ class _AnaSayfaState extends State<AnaSayfa>
   void initState() {
     // TODO: implement initState
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -64,6 +65,22 @@ class _AnaSayfaState extends State<AnaSayfa>
                   size: 22,
                 ),
                 child: Text("Completed"),
+              ),
+            ),
+            InkWell(
+               onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          UserProfile()), 
+                );
+              },
+              child: Tab(
+                icon: Icon(
+                  Icons.person_rounded,
+                  size: 22,
+                ),
+                child: Text("User"),
               ),
             ),
           ],

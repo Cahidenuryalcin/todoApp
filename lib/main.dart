@@ -1,15 +1,16 @@
-import 'dart:ffi';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:todo_app/app_constanst.dart';
-import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/login.dart';
-import 'package:todo_app/provider/auth_provider.dart';
+import 'package:todo_app/provider/auth_provider.dart' as my_auth;
 import 'package:todo_app/provider/task_proivder.dart';
 import 'package:todo_app/register.dart';
-import 'package:todo_app/todo_list.dart';
+import 'package:todo_app/user_profile.dart';
+import 'todo_list.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,17 +21,36 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => my_auth.AuthProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: WelcomeScreen(),
-      ),
+      child: MyApp(),
     ),
   );
 }
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: InitialScreen(),
+    );
+  }
+}
+
+class InitialScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = Provider.of<my_auth.AuthProvider>(context);
+
+    if (authProvider.user == null) {
+      return WelcomeScreen();
+    } else {
+      return AnaSayfa();
+    }
+  }
+}
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 

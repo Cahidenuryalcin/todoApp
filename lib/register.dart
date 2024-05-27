@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/provider/auth_provider.dart';
 import 'package:todo_app/app_constanst.dart';
+import 'package:todo_app/provider/auth_provider.dart' as my_auth;
+import 'package:todo_app/user_profile.dart';
+import 'todo_list.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
-
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -18,8 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+    return Scaffold(resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Sabitler.appbarColor,
@@ -31,49 +30,60 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Sabitler.appbarTextColor)),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 29, right: 29, top: 30),
+          padding: const EdgeInsets.only(left: 29, right: 29, top: 30),
         child: Form(
           key: _formKey,
           child: Column(
-            children: [
+            children: <Widget>[
               TextFormField(
                 controller: _nameController,
-                validator: (value) =>
-                    value!.isEmpty ? "Please enter your name" : null,
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(hintText: "Name"),
+                decoration: InputDecoration(labelText: 'Name'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
               ),
-              const SizedBox(height: 10),
               TextFormField(
                 controller: _emailController,
-                validator: (value) =>
-                    value!.isEmpty ? "Please enter your email" : null,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: "Email"),
+                decoration: InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
-              const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
-                validator: (value) =>
-                    value!.isEmpty ? "Please enter password" : null,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: const InputDecoration(hintText: "Password"),
+                decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
               ),
-              const SizedBox(height: 40),
+               const SizedBox(height: 40),
               SizedBox(
-                width: double.infinity,
+                 width: double.infinity,
                 height: 65,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                       backgroundColor: const Color.fromRGBO(147, 149, 211, 1)),
-                  onPressed: _register,
-                  child: const Text("Register",
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _register(context);
+                    }
+                  },
+                   child: const Text("Register",
                       style: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -81,15 +91,21 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _register() async {
-    if (_formKey.currentState!.validate()) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  void _register(BuildContext context) async {
+    final authProvider = Provider.of<my_auth.AuthProvider>(context, listen: false);
+    try {
       await authProvider.createUserEmailAndPassword(
         _emailController.text,
         _passwordController.text,
         _nameController.text,
       );
-      // sayfa yönlendirmesi direkt profil sayfası
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => UserProfile()),
+      );
+    } catch (e) {
+      // Handle error
     }
   }
 }
