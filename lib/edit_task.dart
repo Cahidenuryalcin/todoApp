@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/model/task.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +6,8 @@ import 'package:todo_app/provider/task_proivder.dart';
 
 class EditTask extends StatefulWidget {
   final Task task;
-  final int index; 
 
-  const EditTask({super.key, required this.task, required this.index});
+  const EditTask({Key? key, required this.task}) : super(key: key);
 
   @override
   State<EditTask> createState() => _EditListState();
@@ -39,7 +36,7 @@ class _EditListState extends State<EditTask> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Sabitler.appbarColor,
-        title: const Text("Edit Task"),
+        title: const Text("Görevi Düzenle"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -48,11 +45,11 @@ class _EditListState extends State<EditTask> {
             children: [
               TextFormField(
                 controller: _titleController, 
-                decoration: const InputDecoration(labelText: "Title"),
+                decoration: const InputDecoration(labelText: "Başlık"),
               ),
               TextFormField(
                 controller: _detailController,
-                decoration: const InputDecoration(labelText: "Detail"),
+                decoration: const InputDecoration(labelText: "Detay"),
               ),
               const SizedBox(height: 20),
               Row(
@@ -62,20 +59,21 @@ class _EditListState extends State<EditTask> {
                     onPressed: () {
                       // Güncelleme fonksiyonu
                       Task updatedTask = Task(
+                        id: widget.task.id, // Önemli: Task'ın mevcut ID'sini koruyun
                         taskTitle: _titleController.text,
                         taskDetail: _detailController.text,
                       );
                       Provider.of<TaskProvider>(context, listen: false)
-                          .updateTask(widget.index, updatedTask);
+                          .updateTask(widget.task, updatedTask); // widget.task ve updatedTask doğru parametreler olarak geçirildi
                       Navigator.pop(context); // Güncelleme sonrası sayfayı kapat
                     },
-                    child: const Text("Update"),
+                    child: const Text("Güncelle"),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context); // İptal et ve sayfayı kapat
                     },
-                    child: const Text("Cancel"),
+                    child: const Text("İptal"),
                   ),
                 ],
               ),

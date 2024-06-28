@@ -4,6 +4,7 @@ import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/edit_task.dart';
 import 'package:todo_app/model/task.dart';
 import 'package:todo_app/provider/task_proivder.dart';
+
 class TaskList extends StatelessWidget {
   const TaskList({super.key});
 
@@ -13,21 +14,21 @@ class TaskList extends StatelessWidget {
 
     return allTasks.isNotEmpty
         ? ListView.builder(
-            padding: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(4.0),
             itemCount: allTasks.length,
             itemBuilder: (context, index) {
-              Task task = allTasks[index]; 
+              Task task = allTasks[index];
               return Dismissible(
                 key: UniqueKey(),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  Provider.of<TaskProvider>(context, listen: false).removeTask(index);
+                  Provider.of<TaskProvider>(context, listen: false).removeTask(task.id); // Düzeltildi
                 },
                 child: Card(
                   color: Sabitler.cardColor,
                   child: ListTile(
                     title: Text(
-                      task.taskTitle, 
+                      task.taskTitle,
                       style: TextStyle(
                         color: Sabitler.listTileTitleColor,
                         fontWeight: FontWeight.bold,
@@ -35,7 +36,7 @@ class TaskList extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      task.taskDetail, 
+                      task.taskDetail,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 11,
@@ -50,7 +51,7 @@ class TaskList extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => EditTask(task: task, index: index),
+                                  builder: (context) => EditTask(task: task),
                                 ),
                               );
                             },
@@ -62,7 +63,7 @@ class TaskList extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Provider.of<TaskProvider>(context, listen: false).removeTask(index);
+                              Provider.of<TaskProvider>(context, listen: false).removeTask(task.id); // Düzeltildi
                             },
                             child: Icon(
                               Icons.delete_outline_rounded,
@@ -72,7 +73,7 @@ class TaskList extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              
+                              // Ekstra fonksiyonellik eklemek isterseniz buraya ekleyin
                             },
                             child: Icon(
                               Icons.check_circle_outline_rounded,

@@ -66,7 +66,7 @@ class _AddTaskState extends State<AddTask> {
   void _taskAddAndList() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      var newTask = Task(taskTitle: taskTitle, taskDetail: taskDetail);
+      var newTask = Task(taskTitle: taskTitle, taskDetail: taskDetail, id: '');
       /* DataHelper.taskAdd(newTask);
       widget.onTaskAdded(); 
       */// Callback'i çağırarak durum güncellemesini tetikle

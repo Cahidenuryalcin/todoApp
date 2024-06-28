@@ -102,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
       
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => UserProfile()),
+        MaterialPageRoute(builder: (context) => AnaSayfa()),
       );
     } catch (e) {
       // Handle error

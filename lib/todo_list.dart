@@ -3,8 +3,6 @@ import 'package:todo_app/add_task.dart';
 import 'package:todo_app/app_constanst.dart';
 import 'package:todo_app/completed_task.dart';
 import 'package:todo_app/provider/task_proivder.dart';
-
-
 import 'package:todo_app/task_list.dart';
 import 'package:todo_app/user_profile.dart';
 
@@ -15,13 +13,11 @@ class AnaSayfa extends StatefulWidget {
   State<AnaSayfa> createState() => _AnaSayfaState();
 }
 
-class _AnaSayfaState extends State<AnaSayfa>
-    with SingleTickerProviderStateMixin {
+class _AnaSayfaState extends State<AnaSayfa> with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
   }
@@ -31,8 +27,6 @@ class _AnaSayfaState extends State<AnaSayfa>
     tabController.dispose();
     super.dispose();
   }
-
-  get index => null;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +49,7 @@ class _AnaSayfaState extends State<AnaSayfa>
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) =>
-                          CompletedTask()), 
+                      builder: (context) => CompletedTask()),
                 );
               },
               child: Tab(
@@ -68,11 +61,10 @@ class _AnaSayfaState extends State<AnaSayfa>
               ),
             ),
             InkWell(
-               onTap: () {
+              onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) =>
-                          UserProfile()), 
+                      builder: (context) => UserProfile()),
                 );
               },
               child: Tab(

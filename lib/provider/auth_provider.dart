@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -32,13 +32,13 @@ class AuthProvider with ChangeNotifier {
   Future<UserCredential> createUserEmailAndPassword(String email, String password, String name) async {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
     await userCredential.user?.updateDisplayName(name);
-    await userCredential.user?.reload();  // Reload the user to ensure the display name is updated
-    _user = _auth.currentUser;  // Update the current user instance
+    await userCredential.user?.reload();  
+    _user = _auth.currentUser;  
 
     if (!_user!.emailVerified) {
       _user?.sendEmailVerification();
     }
-    notifyListeners();  // Notify listeners after user is updated
+    notifyListeners();  
     return userCredential;
   }
 
@@ -47,15 +47,15 @@ class AuthProvider with ChangeNotifier {
     _user = null;
     await storage.delete(key: 'uid');
     notifyListeners();
-    debugPrint("cikis yapildi");
+    debugPrint("Logout successful");
   }
 
   Future<void> deleteUser() async {
     if (_auth.currentUser != null) {
       await _auth.currentUser!.delete();
-      debugPrint("kullanıcı silindi");
+      debugPrint("User deleted");
     } else {
-      debugPrint("önce kayit ol ");
+      debugPrint("First register");
     }
   }
 }
